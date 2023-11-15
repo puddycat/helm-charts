@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  home:
+  - annotations:
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-11-15T00:24:51.146808Z"
+    description: A Helm chart for Home infrastructure
+    digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
+    maintainers:
+    - name: Raymond St.Rose
+    name: home
+    sources:
+    - git@github.com:puddycat/kubernetes.git
+      #branch: gh-pages
+    type: application
+    urls:
+    - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
+    version: 0.0.1
+generated: "2023-11-15T00:24:51.146284Z"
