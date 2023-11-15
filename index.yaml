@@ -13,7 +13,7 @@ entries:
     name: home
     sources:
     - git@github.com:puddycat/kubernetes.git
-      branch: gh-pages
+      #branch: gh-pages
     type: application
     urls:
     - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
