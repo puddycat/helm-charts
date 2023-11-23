@@ -5,9 +5,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2023-11-23T19:23:11.31003Z"
+    created: "2023-11-23T22:46:48.870015Z"
     description: A Helm chart for Avahi mDNS support within the Home infrastructure
-    digest: a203df2800f735a4add39f8f382c5d5a16fa60a20912520e2d9dbbb869495d01
+    digest: 70c287f9cdeba8808b14d58f84fe23348dc41ad0a2d3994e1124fb618a3f526b
     maintainers:
     - name: Raymond St.Rose
     name: avahi
@@ -34,4 +34,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-23T22:46:27.272578Z"
+generated: "2023-11-23T22:46:48.869399Z"
