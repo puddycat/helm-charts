@@ -22,9 +22,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2023-11-23T19:23:11.310466Z"
+    created: "2023-11-23T22:15:13.71258Z"
     description: A Helm chart for Home infrastructure
-    digest: a9fca9cc9ff93b8930cb48995b080e60bfb6e72b1004f115f85a3235973e5482
+    digest: 74af10b4b67743bd6cf671321e389fa3ea8af56707d74990160c2319ee90d171
     maintainers:
     - name: Raymond St.Rose
     name: home
@@ -34,4 +34,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-23T19:23:11.309438Z"
+generated: "2023-11-23T22:15:13.710934Z"
