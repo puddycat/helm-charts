@@ -1,0 +1,14 @@
+annotations:
+  artifacthub.io/prerelease: "true"
+apiVersion: v2
+appVersion: 0.0.1
+#dependencies:
+description: A Helm chart for Home infrastructure
+maintainers:
+- name: Raymond St.Rose
+name: home
+sources:
+#- git@github.com:puddycat/kubernetes.git
+- https://github.com/puddycat/helm-charts
+type: application
+version: 0.0.1

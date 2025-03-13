@@ -1,0 +1,59 @@
+global:
+  # e.g.
+  # imagePullSecrets:
+  #   - my-registry-secrets
+  #   - other-registry-secrets
+  # -- Global Docker registry secret names as an array
+  imagePullSecrets: []
+
+image:
+  # -- Home image repository
+  #repository: raymondstrose/home
+  # -- Home image pull policy
+  pullPolicy: IfNotPresent
+
+# -- set false to use `Deployment`, set true to use `DaemonSet`
+useDaemonSet: false
+# -- if useDaemonSet is true or autoscaling.enabled is true, replicaCount not become effective
+replicaCount: 1
+
+autoscaling:
+  # -- Enable autoscaling for Home deployment
+  enabled: false
+  # -- Minimum number of replicas to scale back
+  minReplicas: 1
+  # -- Maximum number of replicas to scale out
+  maxReplicas: 100
+  # -- Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+service:
+  # -- Home service settings for http
+  http:
+    enabled: true
+    servicePort: 80
+    containerPort: 9080
+    # -- Support multiple http ports
+    additionalContainerPorts: []
+      # - port: 9081
+      #   enable_http2: true          # If not set, the default value is `false`.
+      # - ip: 127.0.0.2               # Specific IP, If not set, the default value is `0.0.0.0`.
+      #   port: 9082
+      #   enable_http2: true
+
+  # -- Override default labels assigned to Home gateway resources
+  labelsOverride: {}
+  # labelsOverride:
+  #   app.kubernetes.io/name: "{{ .Release.Name }}"
+  #   app.kubernetes.io/instance: '{{ include "home.name" . }}'
+
+home:
+  ssl:
+    enabled: false
+    containerPort: 9443
+    # -- Support multiple https ports
+    additionalContainerPorts: []
+      # - ip: 127.0.0.3           # Specific IP, If not set, the default value is `0.0.0.0`.
+      #   port: 9445
+      #   enable_http2: true

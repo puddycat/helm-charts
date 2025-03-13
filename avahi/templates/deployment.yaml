@@ -1,0 +1,95 @@
+{{- if .Values.mdns.test.enabled }}
+apiVersion: apps/v1
+kind: {{ ternary "DaemonSet" "Deployment" .Values.useDaemonSet }}
+metadata:
+  name: {{ include "avahi.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "avahi.labels" . | nindent 4 }}
+spec:
+{{- if and (not .Values.useDaemonSet) (not .Values.autoscaling.enabled) }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  selector:
+    matchLabels:
+      {{- include "avahi.selectorLabels" . | nindent 6 }}
+  {{- if .Values.updateStrategy }}
+  {{- if (not .Values.useDaemonSet) }}
+  strategy: {{ toYaml .Values.updateStrategy | nindent 4 }}
+  {{- else }}
+  updateStrategy: {{ toYaml .Values.updateStrategy | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.podAnnotations }}
+        {{- range $key, $value := $.Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+        {{- end }}
+      labels:
+        {{- include "avahi.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range $.Values.global.imagePullSecrets }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.mdns.image.repository }}:{{ default .Chart.AppVersion .Values.mdns.image.tag }}"
+          imagePullPolicy: {{ .Values.mdns.image.pullPolicy }}
+          env:
+          {{- if .Values.timezone }}
+            - name: TZ
+              value: {{ .Values.timezone }}
+          {{- end }}
+          {{- if .Values.extraEnvVars }}
+          {{- include "avahi.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+          {{- end }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.http.containerPort }}
+              protocol: TCP
+            {{- range .Values.service.http.additionalContainerPorts }}
+            - name: http-{{ .port | toString }}
+              containerPort: {{ .port }}
+              protocol: TCP
+            {{- end }}     
+            - name: tls
+              containerPort: {{ .Values.avahi.ssl.containerPort }}
+              protocol: TCP
+            {{- range .Values.avahi.ssl.additionalContainerPorts }}
+            - name: tls-{{ .port | toString }}
+              containerPort: {{ .port }}
+              protocol: TCP
+            {{- end }}
+            
+      {{- if .Values.hostNetwork }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      {{- end }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
