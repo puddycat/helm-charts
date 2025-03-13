@@ -1,3 +1,4 @@
 boulder/
 etc/*
+*.tgz
 #*-?.?.?.tgz
