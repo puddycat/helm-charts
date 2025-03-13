@@ -1,0 +1,249 @@
+#! /usr/bin/env bash
+#
+# kubernetes/helm-charts/bin/package
+#
+# raymondstrose@hotmail.com
+#
+#   Package Helm charts for the chart repository made available on GitHub Pages.
+#
+
+append () { sed -e "s?\$?$@?"; }
+prepend () { sed -e "s?^?$@?"; }
+indent () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "    "; }
+error () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: error: " >&2; }
+warning () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: warning: " >&2; }
+notice () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: notice: " >&2; }
+info () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: info: " >&2; }
+verbose () { $VERBOSE_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: verbose: " >&2; } }
+debug () { $DEBUG_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: debug: " >&2; } }
+
+function execute ()
+{
+    declare -a params;
+
+    for param; do
+        if [[ -z "${param}" || "${param}" =~ [^A-Za-z0-9_@%+=:,./-] ]]; then
+            params+=("'${param//\'/\'\"\'\"\'}'");
+        else
+            params+=("${param}");
+        fi;
+    done;
+
+    debug "${params[*]}";
+    eval ${params[*]};
+}
+
+# See: https://helm.sh/blog/storing-charts-in-oci/#helm
+
+helm_version ()
+{
+	helm version --template='{{.Version}}';
+}
+
+helm_supports_oci_registries ()
+{
+	case $(helm_version) in
+	v0.*| v1.*| v2.*| v3.[0-7].*) return 1;;
+	*) return 0;;
+	esac;
+
+	return 0;
+}
+
+# List the available Helm packages
+#
+list ()
+{
+	return 0;
+}
+
+# Create a Helm package
+#
+create ()
+{
+# Publish to GitHub Pages.
+#
+	publish_github_pages ()
+	{
+		execute cp -p index.yaml $GITHUB_PAGES_DIR || return $?;
+		execute mv $CREATE_PACKAGE-*.tgz $GITHUB_PAGES_DIR || return $?;
+		
+		(
+			info "updating $GITHUB_PAGES_DIR";
+			cd $GITHUB_PAGES_DIR;
+			execute git add index.yaml *.tgz || return $?;
+			execute git commit -m "Published $CREATE_PACKAGE Helm chart" || return $?;
+		)
+
+		return 0;
+	}
+
+# Package the specified resource
+	execute helm package --debug "$CREATE_PACKAGE";
+
+# Index the Helm charts and generate the index.yaml file required for a chart repository
+	debug "generating the index.yaml for $HELM_REPO_URL";
+
+	if [ -f $INSTALL_DIR/index.yaml ]; then
+		execute helm repo index $INSTALL_DIR --merge $INSTALL_DIR/index.yaml --url $HELM_REPO_URL || return $?;
+	else
+		execute helm repo index $INSTALL_DIR --url $HELM_REPO_URL || return $?;
+	fi;
+
+	GITHUB_PAGES_DIR="/Users/raymond/git/working-directories/helm-charts/";
+
+	if [ ! -d $GITPAGES_DIR ]; then
+		error "$GITHUB_PAGES_DIR: directory not found";
+		return 1;
+	fi;
+
+	publish_github_pages || return $?;
+
+	return 0;
+}
+
+# Remove a Helm package
+#
+remove ()
+{
+	return 0;
+}
+
+main ()
+{
+    usage ()
+    {
+        cat <<-EOF >&2
+			$PROGNAME: usage: $PROGNAME [--help] [--debug] [--verbose] [--config-dir {path}] [--repo-url {path}] [--list] [--create {name}] [--remove {name}]
+
+			--list                                    List the available Helm package(s)
+			--create {name}                           Create the specified Helm package
+			--remove {name}                           Remove the specified Helm package
+			--repo-url {path}                         Specify the repository URL (default: $HELM_REPO_URL)
+			--config-dir {path}                       Specify the configuration directory (default: $CONFIG_DIR)
+			--verbose                                 Enable verbose mode.
+			--debug                                   Enable debug mode.
+			--help                                    Display this usage information.
+			EOF
+
+        return 0;
+    }
+
+# Create the initial configuration files.
+#
+# Any files already in place should not be overwritten.
+#
+	initialise_configuration ()
+	{
+		[ -d $CONFIG_DIR ] || mkdir -p $CONFIG_DIR;
+
+		if [ ! -f $CONFIG_DIR/settings ]; then
+			cat <<-EOF >$CONFIG_DIR/settings
+				export DEBUG_MODE=false;
+				export VERBOSE_MODE=false;
+				export REMOVE_MODE=false;
+				export NOOP_MODE=false;
+				export LIST_MODE=false;
+
+				export CREATE_PACKAGE="";
+				export REMOVE_PACKAGE="";
+
+				#export HELM_REPO_URL="https://github.com/puddycat/helm-charts/";
+				export HELM_REPO_URL="https://github.com/puddycat/kubernetes/tree/develop/helm-charts/";
+				EOF
+		fi;
+
+		return 0;
+	}
+
+# Load configuration files.
+#
+	load_config ()
+	{
+		if [ "$CONFIG_DIR" ]; then
+			if [ -d "$CONFIG_DIR" ]; then
+
+			# Configure the process
+			#
+				notice "Loading configuration.";
+				for filename in $CONFIG_DIR/*; do
+					[ -f "$filename" ] && source "$filename";
+				done;
+			fi;
+		fi;
+	}
+
+    export PROGNAME=`basename "$0"`;
+    export PROGDIR=`dirname "$0"`;
+    export INSTALL_DIR=`dirname "$PROGDIR"`;
+    export CONFIG_DIR="$INSTALL_DIR/etc/$PROGNAME";
+    export LIB_DIR="$INSTALL_DIR/lib/$PROGNAME";
+    export WORK_DIR="$INSTALL_DIR/var/$PROGNAME";
+
+# Create the initial configuration files.
+	initialise_configuration || return $?;
+
+# Load the default configuration files.
+	load_config || return $?;
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+        --repo-url|--repo-url=?*)
+            case "$1" in
+            --repo-url)		HELM_REPO_URL="$2"; shift;;
+            --repo-url=?*)	HELM_REPO_URL="${1#--repo-url=}";;
+            esac;;
+        --list)	LIST_MODE=true;;
+        --create|--create=?*)
+            case "$1" in
+            --create)		CREATE_PACKAGE="$2"; shift;;
+            --create=?*)	CREATE_PACKAGE="${1#--create=}";;
+            esac;;
+        --remove|--remove=?*)
+            case "$1" in
+            --remove)		REMOVE_PACKAGE="$2"; shift;;
+            --remove=?*)	REMOVE_PACKAGE="${1#--remove=}";;
+            esac;;
+        --config-dir|--config-dir=?*)
+            case "$1" in
+            --config-dir)		CONFIG_DIR="$2"; shift;;
+            --config-dir=?*)	CONFIG_DIR="${1#--config-dir=}";;
+		    esac;
+
+		# Create the initial configuration files.
+			initialise_configuration || return $?;
+
+		# Load the specified configuration files.
+			load_config || return $?;;
+        --debug)	$DEBUG_MODE && set -x; DEBUG_MODE=true;;
+        --verbose)	VERBOSE_MODE=true;;
+        --help) usage; return 2;;
+        -*)	error "unknown option \"$1\""; usage; return 1;;
+        *)	error "unrecognised command line argument \"$1\""; usage; return 1;;
+        esac;
+
+        shift;
+    done;
+
+	if helm_supports_oci_registries; then
+		 debug "helm $(helm_version) with OCI support";
+	else
+		 warning "helm $(helm_version) does not support OCI registries";
+	fi;
+
+	if $LIST_MODE; then
+		list || return $?;
+	fi;
+
+	if [ "$CREATE_PACKAGE" ]; then
+		create || return $?;
+	fi;
+
+	if [ "$REMOVE_PACKAGE" ]; then
+		remove || return $?;
+	fi;
+
+	return 0;
+}
+
+	main "$@";
