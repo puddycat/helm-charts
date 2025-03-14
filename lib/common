@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+#
+# kubernetes/helm-charts/lib/common
+#
+# raymondstrose@hotmail.com
+#
+#   Package Helm charts for the chart repository made available on GitHub Pages.
+#
+
+append () { sed -e "s?\$?$@?"; }
+prepend () { sed -e "s?^?$@?"; }
+indent () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "    "; }
+error () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: error: " >&2; }
+warning () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: warning: " >&2; }
+notice () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: notice: " >&2; }
+info () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: info: " >&2; }
+verbose () { $VERBOSE_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: verbose: " >&2; } }
+debug () { $DEBUG_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: debug: " >&2; } }
+
+function execute ()
+{
+	declare -a params;
+
+	for param; do
+		if [[ -z "${param}" || "${param}" =~ [^A-Za-z0-9_@%+=:,./-] ]]; then
+			params+=("'${param//\'/\'\"\'\"\'}'");
+		else
+			params+=("${param}");
+		fi;
+	done;
+
+	debug "${params[*]}";
+	eval ${params[*]};
+}
