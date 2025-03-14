@@ -7,32 +7,6 @@
 #   Pull Helm chart from the chart repository.
 #
 
-append () { sed -e "s?\$?$@?"; }
-prepend () { sed -e "s?^?$@?"; }
-indent () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "    "; }
-error () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: error: " >&2; }
-warning () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: warning: " >&2; }
-notice () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: notice: " >&2; }
-info () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: info: " >&2; }
-verbose () { $VERBOSE_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: verbose: " >&2; } }
-debug () { $DEBUG_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: debug: " >&2; } }
-
-function execute ()
-{
-    declare -a params;
-
-    for param; do
-        if [[ -z "${param}" || "${param}" =~ [^A-Za-z0-9_@%+=:,./-] ]]; then
-            params+=("'${param//\'/\'\"\'\"\'}'");
-        else
-            params+=("${param}");
-        fi;
-    done;
-
-    debug "${params[*]}";
-    eval ${params[*]};
-}
-
 # See: https://helm.sh/blog/storing-charts-in-oci/#helm
 
 helm_version ()
@@ -77,9 +51,9 @@ remove ()
 
 main ()
 {
-    usage ()
-    {
-        cat <<-EOF >&2
+	usage ()
+	{
+		cat <<-EOF >&2
 			$PROGNAME: usage: $PROGNAME [--help] [--debug] [--verbose] [--config-dir {path}] [--repo-url {path}] [--list] [--pull {name}] [--remove {name}]
 
 			--list                                    List the available Helm package(s)
@@ -92,8 +66,8 @@ main ()
 			--help                                    Display this usage information.
 			EOF
 
-        return 0;
-    }
+		return 0;
+	}
 
 # Create the initial configuration files.
 #
@@ -122,7 +96,6 @@ main ()
 		return 0;
 	}
 
-
 # Load configuration files.
 #
 	load_config ()
@@ -140,12 +113,17 @@ main ()
 		fi;
 	}
 
-    export PROGNAME=`basename "$0"`;
-    export PROGDIR=`dirname "$0"`;
-    export INSTALL_DIR=`dirname "$PROGDIR"`;
-    export CONFIG_DIR="$INSTALL_DIR/etc/$PROGNAME";
-    export LIB_DIR="$INSTALL_DIR/lib/$PROGNAME";
-    export WORK_DIR="$INSTALL_DIR/var/$PROGNAME";
+	export PROGNAME=$(basename "$0");
+	export PROGDIR=$(dirname "$0");
+	export INSTALL_DIR=$(dirname "$PROGDIR");
+	export CONFIG_DIR="$INSTALL_DIR/etc/$PROGNAME";
+	export LIB_DIR="$INSTALL_DIR/lib/$PROGNAME";
+	export WORK_DIR="$INSTALL_DIR/var/$PROGNAME";
+
+	if [ -r $INSTALL_DIR/lib/common ]; then
+		source $INSTALL_DIR/lib/common;
+		info "Loaded common functions";
+	fi;
 
 # Create the initial configuration files.
 	initialise_configuration || return $?;
@@ -153,44 +131,44 @@ main ()
 # Load the default configuration files.
 	load_config || return $?;
 
-    while [ $# -gt 0 ]; do
-        case "$1" in
-        --repo-url|--repo-url=?*)
-            case "$1" in
-            --repo-url)		HELM_REPO_URL="$2"; shift;;
-            --repo-url=?*)	HELM_REPO_URL="${1#--repo-url=}";;
-            esac;;
-        --list)	LIST_MODE=true;;
-        --pull|--pull=?*)
-            case "$1" in
-            --pull)		PULL_HELM_CHART="$2"; shift;;
-            --pull=?*)	PULL_HELM_CHART="${1#--pull=}";;
-            esac;;
-        --remove|--remove=?*)
-            case "$1" in
-            --remove)		REMOVE_PACKAGE="$2"; shift;;
-            --remove=?*)	REMOVE_PACKAGE="${1#--remove=}";;
-            esac;;
-        --config-dir|--config-dir=?*)
-            case "$1" in
-            --config-dir)		CONFIG_DIR="$2"; shift;;
-            --config-dir=?*)	CONFIG_DIR="${1#--config-dir=}";;
-		    esac;
+	while [ $# -gt 0 ]; do
+		case "$1" in
+		--repo-url|--repo-url=?*)
+			case "$1" in
+			--repo-url)		HELM_REPO_URL="$2"; shift;;
+			--repo-url=?*)	HELM_REPO_URL="${1#--repo-url=}";;
+			esac;;
+		--list)	LIST_MODE=true;;
+		--pull|--pull=?*)
+			case "$1" in
+			--pull)		PULL_HELM_CHART="$2"; shift;;
+			--pull=?*)	PULL_HELM_CHART="${1#--pull=}";;
+			esac;;
+		--remove|--remove=?*)
+			case "$1" in
+			--remove)		REMOVE_PACKAGE="$2"; shift;;
+			--remove=?*)	REMOVE_PACKAGE="${1#--remove=}";;
+			esac;;
+		--config-dir|--config-dir=?*)
+			case "$1" in
+			--config-dir)		CONFIG_DIR="$2"; shift;;
+			--config-dir=?*)	CONFIG_DIR="${1#--config-dir=}";;
+			esac;
 
 		# Create the initial configuration files.
 			initialise_configuration || return $?;
 
 		# Load the specified configuration files.
 			load_config || return $?;;
-        --debug)	$DEBUG_MODE && set -x; DEBUG_MODE=true;;
-        --verbose)	VERBOSE_MODE=true;;
-        --help) usage; return 2;;
-        -*)	error "unknown option \"$1\""; usage; return 1;;
-        *)	error "unrecognised command line argument \"$1\""; usage; return 1;;
-        esac;
+		--debug)	$DEBUG_MODE && set -x; DEBUG_MODE=true;;
+		--verbose)	VERBOSE_MODE=true;;
+		--help) usage; return 2;;
+		-*)	error "unknown option \"$1\""; usage; return 1;;
+		*)	error "unrecognised command line argument \"$1\""; usage; return 1;;
+		esac;
 
-        shift;
-    done;
+		shift;
+	done;
 
 	if helm_supports_oci_registries; then
 		 debug "helm $(helm_version) with OCI support";
