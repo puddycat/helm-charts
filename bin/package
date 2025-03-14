@@ -64,7 +64,8 @@ create ()
 		execute helm repo index $INSTALL_DIR --url $HELM_REPO_URL || return $?;
 	fi;
 
-	GITHUB_PAGES_DIR="/Users/raymond/git/working-directories/helm-charts/";
+	#GITHUB_PAGES_DIR="/Users/raymond/git/working-directories/helm-charts/";
+	GITHUB_PAGES_DIR="$INSTALL_DIR/";
 
 	if [ ! -d $GITPAGES_DIR ]; then
 		error "$GITHUB_PAGES_DIR: directory not found";
@@ -122,8 +123,8 @@ main ()
 				export CREATE_PACKAGE="";
 				export REMOVE_PACKAGE="";
 
-				#export HELM_REPO_URL="https://github.com/puddycat/helm-charts/";
-				export HELM_REPO_URL="https://github.com/puddycat/kubernetes/tree/develop/helm-charts/";
+				export HELM_REPO_URL="https://github.com/puddycat/helm-charts/";
+				#export HELM_REPO_URL="https://github.com/puddycat/kubernetes/tree/develop/helm-charts/";
 				EOF
 		fi;
 

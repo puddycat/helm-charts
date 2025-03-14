@@ -1,0 +1,24 @@
+annotations:
+  category: Messaging
+apiVersion: v2
+appVersion: 14.5.0
+#dependencies:
+#  - name: common
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - bitnami-common
+#    version: 2.x.x
+description: Docker Mailserver.
+engine: gotpl
+home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+keywords:
+  - smtp
+maintainers:
+  - email: raymondstrose@hotmail.com
+    name: Raymond St Rose
+name: docker-mailserver
+sources:
+  - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
+  - https://www.postgresql.org/
+version: 0.0.1
