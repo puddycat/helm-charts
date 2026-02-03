@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "docker-mailserver.fullname" . }}-docker-mailserver-connection"
+  labels:
+    {{- include "docker-mailserver.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": docker-mailserver
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "docker-mailserver.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
