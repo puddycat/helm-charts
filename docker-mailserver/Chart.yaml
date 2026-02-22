@@ -16,7 +16,7 @@ keywords:
   - smtp
 maintainers:
   - email: raymondstrose@hotmail.com
-    name: Raymond St Rose
+    name: Raymond St.Rose
 name: docker-mailserver
 sources:
   - https://github.com/bitnami/containers/tree/main/bitnami/postgresql

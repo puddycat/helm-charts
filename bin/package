@@ -125,7 +125,8 @@ main ()
 				export CREATE_PACKAGE="";
 				export REMOVE_PACKAGE="";
 
-				export HELM_REPO_URL="https://github.com/puddycat/helm-charts/";
+				export HELM_REPO_URL="https://puddycat.github.io/helm-charts/";
+				#export HELM_REPO_URL="https://github.com/puddycat/helm-charts/";
 				#export HELM_REPO_URL="https://github.com/puddycat/kubernetes/tree/develop/helm-charts/";
 				EOF
 		fi;
