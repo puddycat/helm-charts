@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-02-22T11:21:11.88381Z"
+    created: "2026-02-22T16:09:45.82805Z"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -20,14 +20,14 @@ entries:
     - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
     - https://www.postgresql.org/
     urls:
-    - https://github.com/puddycat/helm-charts/tree/develop/docker-mailserver-0.0.1.tgz
+    - https://puddycat.github.io/helm-charts/docker-mailserver-0.0.1.tgz
     version: 0.0.1
   home:
   - annotations:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-02-22T11:21:11.884214Z"
+    created: "2026-02-22T16:09:45.8285Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -37,14 +37,14 @@ entries:
     - git@github.com:puddycat/kubernetes.git
     type: application
     urls:
-    - https://github.com/puddycat/helm-charts/tree/develop/home-0.0.1.tgz
+    - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
     version: 0.0.1
   postgresql:
   - annotations:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-22T11:21:11.884744Z"
+    created: "2026-02-22T16:09:45.829025Z"
     description: A Helm chart for PostgreSQL
     digest: 7d3495ee2c527c23a54f26a29509f881dc893dc6cfdbf70def41ed4e89c27723
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -59,6 +59,6 @@ entries:
     - https://www.postgresql.org/
     type: application
     urls:
-    - https://github.com/puddycat/helm-charts/tree/develop/postgresql-0.0.1.tgz
+    - https://puddycat.github.io/helm-charts/postgresql-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-22T11:21:11.883092Z"
+generated: "2026-02-22T16:09:45.825438Z"
