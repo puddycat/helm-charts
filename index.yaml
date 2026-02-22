@@ -1,37 +1,64 @@
 apiVersion: v1
 entries:
-  avahi:
+  docker-mailserver:
   - annotations:
-      artifacthub.io/prerelease: "true"
+      category: Messaging
     apiVersion: v2
-    appVersion: 0.0.1
-    created: "2023-11-23T22:46:48.870015Z"
-    description: A Helm chart for Avahi mDNS support within the Home infrastructure
-    digest: 70c287f9cdeba8808b14d58f84fe23348dc41ad0a2d3994e1124fb618a3f526b
+    appVersion: 14.5.0
+    created: "2026-02-22T11:21:11.88381Z"
+    description: Docker Mailserver.
+    digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - smtp
     maintainers:
-    - name: Raymond St.Rose
-    name: avahi
+    - email: raymondstrose@hotmail.com
+      name: Raymond St Rose
+    name: docker-mailserver
     sources:
-    - https://github.com/puddycat/helm-charts
-    type: application
+    - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
+    - https://www.postgresql.org/
     urls:
-    - https://puddycat.github.io/helm-charts/avahi-0.0.1.tgz
+    - https://github.com/puddycat/helm-charts/tree/develop/docker-mailserver-0.0.1.tgz
     version: 0.0.1
   home:
   - annotations:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2023-11-23T22:46:27.274298Z"
+    created: "2026-02-22T11:21:11.884214Z"
     description: A Helm chart for Home infrastructure
-    digest: 87e89a7865cbcfe664affea57bee8f1f2a0c651444439faa09b292dca868c126
+    digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
     - name: Raymond St.Rose
     name: home
     sources:
-    - https://github.com/puddycat/helm-charts
+    - git@github.com:puddycat/kubernetes.git
     type: application
     urls:
-    - https://puddycat.github.io/helm-charts/home-0.0.1.tgz
+    - https://github.com/puddycat/helm-charts/tree/develop/home-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-23T22:46:48.869399Z"
+  postgresql:
+  - annotations:
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: "18.1"
+    created: "2026-02-22T11:21:11.884744Z"
+    description: A Helm chart for PostgreSQL
+    digest: 7d3495ee2c527c23a54f26a29509f881dc893dc6cfdbf70def41ed4e89c27723
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    maintainers:
+    - email: raymondstrose@hotmail.com
+      name: Raymond St.Rose
+    name: postgresql
+    sources:
+    - git@github.com:puddycat/postgres.git
+    - https://github.com/puddycat/helm-charts
+    - https://www.postgresql.org/
+    type: application
+    urls:
+    - https://github.com/puddycat/helm-charts/tree/develop/postgresql-0.0.1.tgz
+    version: 0.0.1
+generated: "2026-02-22T11:21:11.883092Z"
