@@ -5,10 +5,14 @@ appVersion: 18.1
 #dependencies:
 description: A Helm chart for PostgreSQL
 maintainers:
-- name: Raymond St.Rose
+  - email: raymondstrose@hotmail.com
+    name: Raymond St.Rose
 name: postgresql
+home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
 sources:
-#- git@github.com:puddycat/kubernetes.git
+- git@github.com:puddycat/postgres.git
 - https://github.com/puddycat/helm-charts
+- https://www.postgresql.org/
 type: application
 version: 0.0.1

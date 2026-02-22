@@ -5,9 +5,9 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2025-03-14T13:46:16.412593Z"
+    created: "2026-02-22T11:21:11.88381Z"
     description: Docker Mailserver.
-    digest: 8665cdc7a77bb2584b4a8f5c4b325a0fe67d8261bd028f31439c764ad83cc234
+    digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     keywords:
@@ -20,14 +20,14 @@ entries:
     - https://github.com/bitnami/containers/tree/main/bitnami/postgresql
     - https://www.postgresql.org/
     urls:
-    - https://github.com/puddycat/helm-charts/docker-mailserver-0.0.1.tgz
+    - https://github.com/puddycat/helm-charts/tree/develop/docker-mailserver-0.0.1.tgz
     version: 0.0.1
   home:
   - annotations:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-14T13:46:16.41324Z"
+    created: "2026-02-22T11:21:11.884214Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -37,6 +37,28 @@ entries:
     - git@github.com:puddycat/kubernetes.git
     type: application
     urls:
-    - https://github.com/puddycat/helm-charts/home-0.0.1.tgz
+    - https://github.com/puddycat/helm-charts/tree/develop/home-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-14T13:46:16.411814Z"
+  postgresql:
+  - annotations:
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: "18.1"
+    created: "2026-02-22T11:21:11.884744Z"
+    description: A Helm chart for PostgreSQL
+    digest: 7d3495ee2c527c23a54f26a29509f881dc893dc6cfdbf70def41ed4e89c27723
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    maintainers:
+    - email: raymondstrose@hotmail.com
+      name: Raymond St.Rose
+    name: postgresql
+    sources:
+    - git@github.com:puddycat/postgres.git
+    - https://github.com/puddycat/helm-charts
+    - https://www.postgresql.org/
+    type: application
+    urls:
+    - https://github.com/puddycat/helm-charts/tree/develop/postgresql-0.0.1.tgz
+    version: 0.0.1
+generated: "2026-02-22T11:21:11.883092Z"

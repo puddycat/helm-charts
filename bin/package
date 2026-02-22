@@ -52,6 +52,8 @@ create ()
 		return 0;
 	}
 
+	debug $(pwd);
+
 # Package the specified resource
 	execute helm package --debug "$CREATE_PACKAGE";
 
@@ -150,7 +152,7 @@ main ()
 
 	export PROGNAME=$(basename "$0");
 	export PROGDIR=$(dirname "$0");
-	export INSTALL_DIR=$(dirname "$PROGDIR");
+	export INSTALL_DIR=$(dirname "$PROGDIR"); [ "$INSTALL_DIR" = "." ] && INSTALL_DIR="$(pwd)";
 	export CONFIG_DIR="$INSTALL_DIR/etc/$PROGNAME";
 	export LIB_DIR="$INSTALL_DIR/lib/$PROGNAME";
 	export WORK_DIR="$INSTALL_DIR/var/$PROGNAME";
