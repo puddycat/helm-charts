@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-02-22T16:09:45.82805Z"
+    created: "2026-02-23T13:02:11.429094Z"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -27,7 +27,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-02-22T16:09:45.8285Z"
+    created: "2026-02-23T13:02:11.429619Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -44,9 +44,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-22T16:09:45.829025Z"
+    created: "2026-02-23T13:02:11.433159Z"
     description: A Helm chart for PostgreSQL
-    digest: 7d3495ee2c527c23a54f26a29509f881dc893dc6cfdbf70def41ed4e89c27723
+    digest: b2b455f4b8bf38f23b57f47fd2781e23c7103d06b5f88d5bd8ac734479214c7c
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     maintainers:
@@ -61,4 +61,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/postgresql-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-22T16:09:45.825438Z"
+generated: "2026-02-23T13:02:11.425847Z"
