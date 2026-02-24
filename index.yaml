@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-02-23T14:23:06.72594Z"
+    created: "2026-02-24T16:18:18.845461Z"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -27,7 +27,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-02-23T14:23:06.726359Z"
+    created: "2026-02-24T16:18:18.846313Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -44,7 +44,28 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-23T14:23:06.730766Z"
+    created: "2026-02-24T16:18:18.858468Z"
+    description: A Helm chart for PostgreSQL
+    digest: c1a723ce6bb0054de9fab5a4ae9bc1400f65fe45a2ef71bfbd1cc52b7e7a8c8d
+    home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+    icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    maintainers:
+    - email: raymondstrose@hotmail.com
+      name: Raymond St.Rose
+    name: postgresql
+    sources:
+    - git@github.com:puddycat/postgres.git
+    - https://github.com/puddycat/helm-charts
+    - https://www.postgresql.org/
+    type: application
+    urls:
+    - https://puddycat.github.io/helm-charts/postgresql-0.0.2.tgz
+    version: 0.0.2
+  - annotations:
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: "18.1"
+    created: "2026-02-24T16:18:18.854068Z"
     description: A Helm chart for PostgreSQL
     digest: c7d5eab04148133ee885f31973469e4e70cd7784bad321280a0e17bb619b73dc
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -61,4 +82,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/postgresql-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-23T14:23:06.725143Z"
+generated: "2026-02-24T16:18:18.844367Z"
