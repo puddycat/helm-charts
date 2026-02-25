@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-02-24T17:01:23.450637Z"
+    created: "2026-02-25T05:56:21.303645Z"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -27,7 +27,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-02-24T17:01:23.450988Z"
+    created: "2026-02-25T05:56:21.30444Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -41,10 +41,42 @@ entries:
     version: 0.0.1
   postgresql:
   - annotations:
+      category: Database
+      images: |
+        - name: ubuntu
+          image: docker.io/raymondstrose/ubuntu:24.04
+        - name: postgres-exporter
+          image: docker.io/raymondstrose/postgres-exporter:18.1
+        - name: postgresql
+          image: docker.io/raymondstrose/postgresql:18.1
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: "18.1"
+    created: "2026-02-25T05:56:21.334195Z"
+    description: PostgreSQL (Postgres) is an open source object-relational database
+      known for reliability and data integrity. ACID-compliant, it supports foreign
+      keys, joins, views, triggers and stored procedures.
+    digest: f40c9ea7cd5a1097b2dcae8fe6cb136fabd0cf921fdc19dc52f04ea96fa56423
+    icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    maintainers:
+    - email: raymondstrose@hotmail.com
+      name: Raymond St.Rose
+    name: postgresql
+    urls:
+    - https://puddycat.github.io/helm-charts/postgresql-0.0.4.tgz
+    version: 0.0.4
+  - annotations:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-24T17:01:23.47056Z"
+    created: "2026-02-25T05:56:21.327352Z"
     description: A Helm chart for PostgreSQL
     digest: 578ff05b29f0f9499688e8b3c35c537c78524a22523c90c341fa095a7550d1b9
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -65,7 +97,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-24T17:01:23.462597Z"
+    created: "2026-02-25T05:56:21.319864Z"
     description: A Helm chart for PostgreSQL
     digest: a6ead4d81c17058c3a822fff00fd84d556222ed8837a611804ddbf2808065de5
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -86,7 +118,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-02-24T17:01:23.45739Z"
+    created: "2026-02-25T05:56:21.313383Z"
     description: A Helm chart for PostgreSQL
     digest: c7d5eab04148133ee885f31973469e4e70cd7784bad321280a0e17bb619b73dc
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -103,4 +135,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/postgresql-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-24T17:01:23.450049Z"
+generated: "2026-02-25T05:56:21.302731Z"
