@@ -1,18 +1,38 @@
 annotations:
-  artifacthub.io/prerelease: "true"
+  category: Database
+  images: |
+    - name: ubuntu
+      image: docker.io/raymondstrose/ubuntu:24.04
+    - name: postgres-exporter
+      image: docker.io/raymondstrose/postgres-exporter:18.1
+    - name: postgresql
+      image: docker.io/raymondstrose/postgresql:18.1
+  licenses: Apache-2.0
+#  tanzuCategory: service
 apiVersion: v2
-appVersion: 18.1
+appVersion: "18.1"
 #dependencies:
-description: A Helm chart for PostgreSQL
+#- name: common
+#  repository: oci://registry-1.docker.io/bitnamicharts
+#  tags:
+#  - bitnami-common
+#  version: 2.x.x
+description: PostgreSQL (Postgres) is an open source object-relational database known
+  for reliability and data integrity. ACID-compliant, it supports foreign keys, joins,
+  views, triggers and stored procedures.
+#home: https://bitnami.com
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+keywords:
+- postgresql
+- postgres
+- database
+- sql
+- replication
+- cluster
 maintainers:
   - email: raymondstrose@hotmail.com
     name: Raymond St.Rose
 name: postgresql
-home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
-icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-220x234.png
-sources:
-- git@github.com:puddycat/postgres.git
-- https://github.com/puddycat/helm-charts
-- https://www.postgresql.org/
-type: application
-version: 0.0.1
+#sources:
+#- https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+version: 0.0.4

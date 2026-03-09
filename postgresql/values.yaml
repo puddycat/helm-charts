@@ -94,6 +94,7 @@ diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
   ##
   enabled: false
+  #enabled: true
   ## @param diagnosticMode.command Command to override all containers in the statefulset
   ##
   command:
@@ -102,11 +103,11 @@ diagnosticMode:
   ##
   args:
     - infinity
+
 ## @section PostgreSQL common parameters
 ##
-
-## Bitnami PostgreSQL image version
-## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
+## PostgreSQL image version
+## ref: https://hub.docker.com/r/raymondstrose/postgres/tags/
 ## @param image.registry [default: REGISTRY_NAME] PostgreSQL image registry
 ## @param image.repository [default: REPOSITORY_NAME/postgresql] PostgreSQL image repository
 ## @skip image.tag PostgreSQL image tag (immutable tags are recommended)
@@ -117,12 +118,13 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/postgresql
-  tag: 17.6.0-debian-12-r4
+  repository: raymondstrose/postgres
+  tag: 18.1
   digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
+  #pullPolicy: Always
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
@@ -208,9 +210,12 @@ containerPorts:
 ## @param audit.logTimezone Timezone for the log timestamps
 ##
 audit:
-  logHostname: false
-  logConnections: false
-  logDisconnections: false
+  #logHostname: false
+  #logConnections: false
+  #logDisconnections: false
+  logHostname: true
+  logConnections: true
+  logDisconnections: true
   pgAuditLog: ""
   pgAuditLogCatalog: "off"
   clientMinMessages: error
@@ -256,7 +261,7 @@ ldap:
   uri: ""
 ## @param postgresqlDataDir PostgreSQL data dir folder
 ##
-postgresqlDataDir: /bitnami/postgresql/data
+postgresqlDataDir: /postgres/data
 ## @param postgresqlSharedPreloadLibraries Shared preload libraries (comma-separated list)
 ##
 postgresqlSharedPreloadLibraries: "pgaudit"
@@ -426,6 +431,7 @@ primary:
   ##
   livenessProbe:
     enabled: true
+    #enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -440,6 +446,7 @@ primary:
   ##
   readinessProbe:
     enabled: true
+    #enabled: false
     initialDelaySeconds: 5
     periodSeconds: 10
     timeoutSeconds: 5
@@ -501,7 +508,7 @@ primary:
     fsGroupChangePolicy: Always
     sysctls: []
     supplementalGroups: []
-    fsGroup: 1001
+    fsGroup: 999
   ## Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param primary.containerSecurityContext.enabled Enabled containers' Security Context
@@ -518,8 +525,8 @@ primary:
   containerSecurityContext:
     enabled: true
     seLinuxOptions: {}
-    runAsUser: 1001
-    runAsGroup: 1001
+    runAsUser: 999
+    runAsGroup: 999
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: true
@@ -714,7 +721,8 @@ primary:
   service:
     ## @param primary.service.type Kubernetes Service type
     ##
-    type: ClusterIP
+    #type: ClusterIP
+    type: LoadBalancer
     ## @param primary.service.ports.postgresql PostgreSQL service port
     ##
     ports:
@@ -792,7 +800,7 @@ primary:
     ## @param primary.persistence.mountPath The path the volume will be mounted at
     ## Note: useful when using custom PostgreSQL images
     ##
-    mountPath: /bitnami/postgresql
+    mountPath: /postgres
     ## @param primary.persistence.subPath The subdirectory of the volume to mount to
     ## Useful in dev environments and one PV for multiple services
     ##
@@ -958,7 +966,7 @@ readReplicas:
     fsGroupChangePolicy: Always
     sysctls: []
     supplementalGroups: []
-    fsGroup: 1001
+    fsGroup: 999
   ## Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param readReplicas.containerSecurityContext.enabled Enabled containers' Security Context
@@ -975,8 +983,8 @@ readReplicas:
   containerSecurityContext:
     enabled: true
     seLinuxOptions: {}
-    runAsUser: 1001
-    runAsGroup: 1001
+    runAsUser: 999
+    runAsGroup: 999
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: true
@@ -1246,7 +1254,7 @@ readReplicas:
     ## @param readReplicas.persistence.mountPath The path the volume will be mounted at
     ## Note: useful when using custom PostgreSQL images
     ##
-    mountPath: /bitnami/postgresql
+    mountPath: /postgres
     ## @param readReplicas.persistence.subPath The subdirectory of the volume to mount to
     ## Useful in dev environments and one PV for multiple services
     ##
@@ -1329,7 +1337,7 @@ backup:
       fsGroupChangePolicy: Always
       sysctls: []
       supplementalGroups: []
-      fsGroup: 1001
+      fsGroup: 999
     ## backup container's Security Context
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
     ## @param backup.cronjob.containerSecurityContext.enabled Enabled containers' Security Context
@@ -1345,8 +1353,8 @@ backup:
     containerSecurityContext:
       enabled: true
       seLinuxOptions: {}
-      runAsUser: 1001
-      runAsGroup: 1001
+      runAsUser: 999
+      runAsGroup: 999
       runAsNonRoot: true
       privileged: false
       readOnlyRootFilesystem: true
@@ -1485,8 +1493,8 @@ passwordUpdateJob:
   containerSecurityContext:
     enabled: true
     seLinuxOptions: {}
-    runAsUser: 1001
-    runAsGroup: 1001
+    runAsUser: 999
+    runAsGroup: 999
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: true
@@ -1508,7 +1516,7 @@ passwordUpdateJob:
     fsGroupChangePolicy: Always
     sysctls: []
     supplementalGroups: []
-    fsGroup: 1001
+    fsGroup: 999
   ## @param passwordUpdateJob.extraEnvVars Array containing extra env vars to configure the credential init job
   ## For example:
   ## extraEnvVars:
@@ -1595,8 +1603,8 @@ volumePermissions:
   ##
   image:
     registry: docker.io
-    repository: bitnami/os-shell
-    tag: 12-debian-12-r51
+    repository: raymondstrose/ubuntu
+    tag: 20.04
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1704,8 +1712,8 @@ metrics:
   ##
   image:
     registry: docker.io
-    repository: bitnami/postgres-exporter
-    tag: 0.17.1-debian-12-r16
+    repository: raymondstrose/postgres-exporter
+    tag: 18.1
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1760,8 +1768,8 @@ metrics:
   containerSecurityContext:
     enabled: true
     seLinuxOptions: {}
-    runAsUser: 1001
-    runAsGroup: 1001
+    runAsUser: 999
+    runAsGroup: 999
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: true
