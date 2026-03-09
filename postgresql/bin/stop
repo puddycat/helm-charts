@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+#
+# postgres/helm/postgresql/bin/stop
+#
+# raymondstrose@hotmail.com
+#
+#   Stop a Postgres Docker container.
+#
+
+docker stop postgres; docker rm postgres;
