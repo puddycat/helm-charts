@@ -120,6 +120,8 @@ spec:
               if ! is_dir_empty /var/log/nginx; then
                 cp -r /var/log/nginx /emptydir/app-logs-dir;
               fi;
+
+              cp /etc/nginx/conf.d/default.conf /etc/nginx/default/conf.d/
           volumeMounts:
             - name: empty-dir
               mountPath: /emptydir
@@ -128,7 +130,8 @@ spec:
             - name: empty-dir
               mountPath: /var/cache/nginx
             - name: empty-dir
-              mountPath: /etc/nginx/conf.d
+              mountPath: /etc/nginx/default/conf.d
+              subPath: app-conf-dir
         {{- end }}
         {{- if .Values.cloneStaticSiteFromGit.enabled }}
         - name: git-clone-repository
@@ -174,6 +177,7 @@ spec:
               mountPath: /var/cache/nginx
             - name: empty-dir
               mountPath: /etc/nginx/conf.d
+              subPath: app-conf-dir
             {{- if .Values.cloneStaticSiteFromGit.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.cloneStaticSiteFromGit.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
@@ -241,6 +245,7 @@ spec:
               mountPath: /var/cache/nginx
             - name: empty-dir
               mountPath: /etc/nginx/conf.d
+              subPath: app-conf-dir
 */}}
             {{- if .Values.cloneStaticSiteFromGit.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.cloneStaticSiteFromGit.extraVolumeMounts "context" $) | nindent 12 }}
@@ -372,6 +377,7 @@ FIXME: Cannot modify /etc/nginx/conf.d/default.conf (read-only file system?)
 */}}
             - name: empty-dir
               mountPath: /etc/nginx/conf.d
+              subPath: app-conf-dir
 {{- /*
             {{- if or .Values.serverBlock .Values.existingServerBlockConfigmap }}
             - name: nginx-server-block
