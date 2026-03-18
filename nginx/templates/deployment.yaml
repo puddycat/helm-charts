@@ -217,7 +217,7 @@ spec:
             - -ec
             - |
               while true; do
-                  cd /app && git pull origin {{ .Values.cloneStaticSiteFromGit.branch }};
+                  cd /app && git -c safe.directory=/app pull origin {{ .Values.cloneStaticSiteFromGit.branch }};
                   [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/html/* /usr/share/nginx/html/;
                   sleep {{ .Values.cloneStaticSiteFromGit.interval }};
               done;
