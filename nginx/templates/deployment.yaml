@@ -210,10 +210,10 @@ spec:
             - -ec
             - |
               while true; do
-                  cd /app && git -c safe.directory=/app pull origin {{ .Values.cloneStaticSiteFromGit.branch }}
-                  [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/
-                  sleep {{ .Values.cloneStaticSiteFromGit.interval }}
-              done
+                  cd /app && git -c pull origin {{ .Values.cloneStaticSiteFromGit.branch }};
+                  [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/;
+                  sleep {{ .Values.cloneStaticSiteFromGit.interval }};
+              done;
           {{- end }}
           {{- if .Values.cloneStaticSiteFromGit.gitSync.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.cloneStaticSiteFromGit.gitSync.args "context" $) | nindent 12 }}
