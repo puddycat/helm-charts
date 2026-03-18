@@ -153,8 +153,8 @@ spec:
               }
 
               if is_dir_empty /app; then
-                git clone {{ .Values.cloneStaticSiteFromGit.repository }} --branch {{ .Values.cloneStaticSiteFromGit.branch }} /app
-                [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/
+                git clone {{ .Values.cloneStaticSiteFromGit.repository }} --branch {{ .Values.cloneStaticSiteFromGit.branch }} /app;
+                [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/*/* /usr/share/nginx/;
               fi;
           {{- end }}
           {{- if .Values.cloneStaticSiteFromGit.gitClone.args }}
@@ -217,8 +217,8 @@ spec:
             - -ec
             - |
               while true; do
-                  cd /app && git -c pull origin {{ .Values.cloneStaticSiteFromGit.branch }};
-                  [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/;
+                  cd /app/* && git pull origin {{ .Values.cloneStaticSiteFromGit.branch }};
+                  [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/*/* /usr/share/nginx/;
                   sleep {{ .Values.cloneStaticSiteFromGit.interval }};
               done;
           {{- end }}
