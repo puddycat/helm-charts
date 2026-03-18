@@ -147,7 +147,6 @@ spec:
             - /bin/bash
             - -ec
             - |
-              [[ -f "/opt/bitnami/scripts/git/entrypoint.sh" ]] && source "/opt/bitnami/scripts/git/entrypoint.sh"
               git clone {{ .Values.cloneStaticSiteFromGit.repository }} --branch {{ .Values.cloneStaticSiteFromGit.branch }} /tmp/app
               [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /app/* && mv /tmp/app/* /app/
           {{- end }}
@@ -210,7 +209,6 @@ spec:
             - /bin/bash
             - -ec
             - |
-              [[ -f "/opt/bitnami/scripts/git/entrypoint.sh" ]] && source "/opt/bitnami/scripts/git/entrypoint.sh"
               while true; do
                   cd /app && git -c safe.directory=/app pull origin {{ .Values.cloneStaticSiteFromGit.branch }}
                   sleep {{ .Values.cloneStaticSiteFromGit.interval }}
