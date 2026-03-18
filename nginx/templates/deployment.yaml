@@ -147,8 +147,15 @@ spec:
             - /bin/bash
             - -ec
             - |
-              git clone {{ .Values.cloneStaticSiteFromGit.repository }} --branch {{ .Values.cloneStaticSiteFromGit.branch }} /app
-              [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/
+              function is_dir_empty ()
+              {
+                [ -z "$(ls -A $1 2>/dev/null)" ];
+              }
+
+              if is_dir_empty /app; then
+                git clone {{ .Values.cloneStaticSiteFromGit.repository }} --branch {{ .Values.cloneStaticSiteFromGit.branch }} /app
+                [[ "$?" -eq 0 ]] && shopt -s dotglob && rm -rf /usr/share/nginx/html/* && cp -rp /app/* /usr/share/nginx/
+              fi;
           {{- end }}
           {{- if .Values.cloneStaticSiteFromGit.gitClone.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.cloneStaticSiteFromGit.gitClone.args "context" $) | nindent 12 }}

@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-03-18T15:06:40.747609Z"
+    created: "2026-03-18T15:24:26.236818Z"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -27,7 +27,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-03-18T15:06:40.748963Z"
+    created: "2026-03-18T15:24:26.237318Z"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -51,7 +51,38 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.767239Z"
+    created: "2026-03-18T15:24:26.253857Z"
+    description: NGINX Open Source is a web server that can be also used as a reverse
+      proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
+      to its ability to provide faster content.
+    digest: 744beae67e3621ba23a935229a013883f739c550fdd042290eb093196d5e8602
+    icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/nginx/img/nginx-stack-220x234.png
+    keywords:
+    - nginx
+    - http
+    - web
+    - www
+    - reverse proxy
+    maintainers:
+    - name: Raymond St.Rose
+    name: nginx
+    sources:
+    - https://github.com/raymondstrose/nginx
+    urls:
+    - https://puddycat.github.io/helm-charts/nginx-0.0.13.tgz
+    version: 0.0.13
+  - annotations:
+      images: |
+        - name: git
+          image: docker.io/raymondstrose/git:2.51.0-debian-12-r0
+        - name: nginx
+          image: docker.io/raymondstrose/nginx:1.29.2
+        - name: nginx-exporter
+          image: docker.io/raymondstrose/nginx-exporter:1.4.2-debian-12-r9
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: 1.29.2
+    created: "2026-03-18T15:24:26.250707Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -82,7 +113,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.763864Z"
+    created: "2026-03-18T15:24:26.247855Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -113,7 +144,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.759767Z"
+    created: "2026-03-18T15:24:26.243756Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -144,7 +175,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.799171Z"
+    created: "2026-03-18T15:24:26.28476Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -175,7 +206,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.795336Z"
+    created: "2026-03-18T15:24:26.281748Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -206,7 +237,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.79158Z"
+    created: "2026-03-18T15:24:26.278691Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -237,7 +268,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.787079Z"
+    created: "2026-03-18T15:24:26.275253Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -268,7 +299,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.783249Z"
+    created: "2026-03-18T15:24:26.2682Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -299,7 +330,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.779588Z"
+    created: "2026-03-18T15:24:26.264214Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -330,7 +361,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.775058Z"
+    created: "2026-03-18T15:24:26.261211Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -361,7 +392,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.771116Z"
+    created: "2026-03-18T15:24:26.258047Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -392,7 +423,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-03-18T15:06:40.753308Z"
+    created: "2026-03-18T15:24:26.240551Z"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -426,7 +457,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-03-18T15:06:40.825401Z"
+    created: "2026-03-18T15:24:26.316222Z"
     description: PostgreSQL (Postgres) is an open source object-relational database
       known for reliability and data integrity. ACID-compliant, it supports foreign
       keys, joins, views, triggers and stored procedures.
@@ -450,7 +481,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-03-18T15:06:40.8169Z"
+    created: "2026-03-18T15:24:26.309473Z"
     description: A Helm chart for PostgreSQL
     digest: 578ff05b29f0f9499688e8b3c35c537c78524a22523c90c341fa095a7550d1b9
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -471,7 +502,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-03-18T15:06:40.811205Z"
+    created: "2026-03-18T15:24:26.30263Z"
     description: A Helm chart for PostgreSQL
     digest: a6ead4d81c17058c3a822fff00fd84d556222ed8837a611804ddbf2808065de5
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -492,7 +523,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-03-18T15:06:40.804529Z"
+    created: "2026-03-18T15:24:26.29701Z"
     description: A Helm chart for PostgreSQL
     digest: c7d5eab04148133ee885f31973469e4e70cd7784bad321280a0e17bb619b73dc
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -509,4 +540,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/postgresql-0.0.1.tgz
     version: 0.0.1
-generated: "2026-03-18T15:06:40.746486Z"
+generated: "2026-03-18T15:24:26.235993Z"
