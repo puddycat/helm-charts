@@ -422,10 +422,17 @@ FIXME: Cannot modify /etc/nginx/conf.d/default.conf (read-only file system?)
               mountPath: /opt/bitnami/nginx/conf/context.d/http
             {{- end }}
 */}}
+
             {{- if (include "nginx.useStaticSite" .) }}
+{{- /*
             - name: staticsite
               mountPath: /app
+*/}}
+            - name: staticsite
+              mountPath: /usr/share/nginx/html
+              subPath: html
             {{- end }}
+
             {{- if .Values.tls.enabled }}
             - name: certificate
               mountPath: /certs

@@ -1,0 +1,31 @@
+annotations:
+  images: |
+    - name: kibana
+      image: docker.io/raymondstrose/kibana:9.2.0
+    - name: os-shell
+      image: docker.io/raymondstrose/ubuntu:20.04
+  licenses: Apache-2.0
+apiVersion: v2
+appVersion: 9.2.0
+#dependencies:
+#- name: common
+#  repository: oci://registry-1.docker.io/bitnamicharts
+#  tags:
+#  - bitnami-common
+#  version: 2.x.x
+description: Kibana is an open source, browser based analytics and search dashboard
+  for Elasticsearch. Kibana strives to be easy to get started with, while also being
+  flexible and powerful.
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/kibana/img/kibana-stack-220x234.png
+keywords:
+- kibana
+- analytics
+- monitoring
+- metrics
+- logs
+maintainers:
+- name: Raymond St.Rose
+name: kibana
+sources:
+- https://github.com/puddycat/charts/tree/main/kibana
+version: 0.0.1
