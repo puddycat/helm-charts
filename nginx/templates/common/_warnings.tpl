@@ -1,9 +1,5 @@
-{{/*
-Copyright Broadcom, Inc. All Rights Reserved.
-SPDX-License-Identifier: APACHE-2.0
-*/}}
-
 {{/* vim: set filetype=mustache: */}}
+
 {{/*
 Warning about using rolling tag.
 Usage:

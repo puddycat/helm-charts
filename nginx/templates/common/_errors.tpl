@@ -1,4 +1,5 @@
 {{/* vim: set filetype=mustache: */}}
+
 {{/*
 Throw error when upgrading using empty passwords values that must not be empty.
 

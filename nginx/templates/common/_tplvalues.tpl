@@ -1,9 +1,5 @@
-{{/*
-Copyright Broadcom, Inc. All Rights Reserved.
-SPDX-License-Identifier: APACHE-2.0
-*/}}
-
 {{/* vim: set filetype=mustache: */}}
+
 {{/*
 Renders a value that contains template perhaps with scope if the scope is present.
 Usage:

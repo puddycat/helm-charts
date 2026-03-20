@@ -1,10 +1,5 @@
-{{/*
-Copyright Broadcom, Inc. All Rights Reserved.
-SPDX-License-Identifier: APACHE-2.0
-*/}}
-
-
 {{/* vim: set filetype=mustache: */}}
+
 {{/*
 Auxiliary function to get the right value for enabled redis.
 
