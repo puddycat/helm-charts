@@ -1,0 +1,227 @@
+#! /usr/bin/env bash
+#
+# rabbitmq/bin/helm-install
+#
+# raymondstrose@hotmail.com
+#
+#   Install a RabbitMQ HELM chart.
+#
+
+append () { sed -e "s?\$?$@?"; }
+prepend () { sed -e "s?^?$@?"; }
+indent () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "    "; }
+error () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: error: " >&2; }
+warning () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: warning: " >&2; }
+notice () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: notice: " >&2; }
+info () { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: info: " >&2; }
+verbose () { $VERBOSE_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: verbose: " >&2; } }
+debug () { $DEBUG_MODE && { { if [ $# -ne 0 ]; then echo -e "$@"; else cat; fi; } | prepend "$PROGNAME: debug: " >&2; } }
+
+function execute ()
+{
+	declare -a params;
+
+	for param; do
+		if [[ -z "${param}" || "${param}" =~ [^A-Za-z0-9_@%+=:,./-] ]]; then
+			params+=("'${param//\'/\'\"\'\"\'}'");
+		else
+			params+=("${param}");
+		fi;
+	done;
+
+	debug "${params[*]}";
+	eval ${params[*]};
+}
+
+install ()
+{
+	HELM_VALUES="";
+
+	if [ -f "$INSTALL_DIR/values.yaml" ]; then
+		HELM_VALUES="--values $INSTALL_DIR/values.yaml";
+	fi;
+
+# Override values specified within the values.yaml file.
+	HELM_SET_VALUES="";
+
+	if [ "$WEB_PATH" ]; then
+		HELM_SET_VALUES="--set ingress.hosts[0].paths[0].path=$WEB_PATH";
+	fi;
+
+	if $DEPLOYMENT_MODE; then
+		HELM_SET_VALUES="--set service.enable_persistence=false $HELM_SET_VALUES";
+	fi;
+
+	if $STATEFUL_SET_MODE; then
+		HELM_SET_VALUES="--set service.enable_persistence=true $HELM_SET_VALUES";
+	fi;
+
+# Unpacked charts cannot be verified
+	#HELM_VERIFY_MODE="--verify";
+	HELM_VERIFY_MODE="";
+	HELM_DEBUG_MODE="";
+	$DEBUG_MODE && HELM_DEBUG_MODE="--debug";
+
+	if $HELM_LINT_MODE; then
+		execute helm lint --namespace $NAMESPACE_NAME	\
+			$HELM_DEBUG_MODE	\
+			$HELM_VALUES	\
+			--with-subcharts	\
+			$INSTALL_DIR || return $?;
+	fi;
+
+	execute helm install --namespace $NAMESPACE_NAME	\
+		$HELM_DEBUG_MODE	\
+		$HELM_VERIFY_MODE	\
+		--dependency-update	\
+		--dry-run	\
+		--replace	\
+		--create-namespace	\
+		$RELEASE_NAME	\
+		$INSTALL_DIR	\
+		$HELM_SET_VALUES	\
+		$HELM_VALUES || return $?;
+
+	execute helm install --namespace $NAMESPACE_NAME	\
+		$HELM_DEBUG_MODE	\
+		$HELM_VERIFY_MODE	\
+		--dependency-update	\
+		--wait	\
+		--wait-for-jobs	\
+		--replace	\
+		--create-namespace	\
+		$RELEASE_NAME	\
+		$INSTALL_DIR	\
+		$HELM_SET_VALUES	\
+		$HELM_VALUES || return $?;
+
+	return 0;
+}
+
+remove ()
+{
+	execute helm uninstall --namespace=$NAMESPACE_NAME $RELEASE_NAME || return $?;
+	return 0;
+}
+
+main ()
+{
+# Display usage information.
+#
+	usage ()
+	{
+		cat <<-EOF >&2
+			$PROGNAME: usage: $PROGNAME [--help] [--debug] [--verbose] [--remove] [--noop] [--config-dir {path}] [--stateful-set|--deployment] [--namespace {name}]
+
+			--stateful-set              Deploy a stateful application (default: $STATEFUL_SET_MODE)
+			--deployment                Deploy a stateless application (default: $DEPLOYMENT_MODE)
+			--config-dir {path}         Specify the configuration directory (default: $CONFIG_DIR)
+			--namespace {name}          Specify the namespace name (default: $NAMESPACE_NAME)
+			--noop                      Don't perform the operation, just report the actions that would be carried out.
+			--remove                    Remove the installation (default: $REMOVE_MODE)
+			--verbose                   Enable verbose mode.
+			--debug                     Enable debug mode.
+			--help                      Display this usage information.
+			EOF
+
+		return 0;
+	}
+
+# Load configuration files.
+#
+	load_config ()
+	{
+		if [ "$CONFIG_DIR" ]; then
+			if [ -d "$CONFIG_DIR" ]; then
+
+			# Configure the process
+			#
+				notice "Loading configuration.";
+				for filename in $CONFIG_DIR/*; do
+					indent "$filename" | debug;
+					[ -f "$filename" ] && { source "$filename" || return 1; }
+				done;
+			fi;
+		fi;
+
+		return 0;
+	}
+
+	export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin";
+	export PROGNAME=$(basename "$0");
+	export PROGDIR=$(dirname "$0");
+	export INSTALL_DIR=$(dirname "$PROGDIR");
+	export CONFIG_DIR="$INSTALL_DIR/etc/$PROGNAME";
+	export LIB_DIR="$INSTALL_DIR/lib/$PROGNAME";
+	export WORK_DIR="$INSTALL_DIR/var/$PROGNAME";
+	export DEBUG_MODE=false;
+	export VERBOSE_MODE=false;
+	export NOOP_MODE=false;
+	export IMAGE_PREFIX="";
+	export IMAGE_NAME="rabbitmq";
+	export IMAGE_TAG="14.5-alpine3.16";
+	export USE_BUILDX=true;
+	#export BUILDX_PLATFORMS="linux/amd64,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6";
+	export BUILDX_PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7";
+	export REMOVE_MODE=false;
+	export NAMESPACE_NAME="rabbitmq";
+	export STATEFUL_SET_MODE=false;
+	export DEPLOYMENT_MODE=false;
+	export CHART_NAME=$(awk '/^name: / { print $2; }' Chart.yaml);	# As defined in Chart.yaml
+	export RELEASE_NAME="$CHART_NAME";
+
+# Load the default configuration files.
+	load_config || return $?;
+
+	while [ $# -gt 0 ]; do
+		case "$1" in
+		--stateful-set)	STATEFUL_SET_MODE=true;;
+		--deployment)	DEPLOYMENT_MODE=true;;
+		--remove)    REMOVE_MODE=true;;
+		--namespace|--namespace=?*)
+			case "$1" in
+			--namespace)	NAMESPACE_NAME="$2"; shift;;
+			--namespace=?*)	NAMESPACE_NAME="${1#--namespace=}";;
+			esac;;
+		--image-name|--image-name=?*)
+			case "$1" in
+			--image-name)		IMAGE_NAME="$2"; shift;;
+			--image-name=?*)	IMAGE_NAME="${1#--image-name=}";;
+			esac;;
+		--image-tag|--image-tag=?*)
+			case "$1" in
+			--image-tag)	IMAGE_TAG="$2"; shift;;
+			--image-tag=?*)	IMAGE_TAG="${1#--image-tag=}";;
+			esac;;
+		--config-dir|--config-dir=?*)
+			case "$1" in
+			--config-dir)		CONFIG_DIR="$2"; shift;;
+			--config-dir=?*)	CONFIG_DIR="${1#--config-dir=}";;
+			esac;
+
+		# Load the specified configuration files.
+			load_config || return $?;;
+		--debug)	$DEBUG_MODE && set -x; DEBUG_MODE=true;;
+		--noop)		NOOP_MODE=true;;
+		--verbose)	VERBOSE_MODE=true;;
+		--help) usage; return 2;;
+		--) shift; break;;
+		-*)	error "unknown option \"$1\""; usage; return 1;;
+		*)	error "unrecognised command line argument \"$1\""; usage; return 1;;
+		esac;
+
+		shift;
+	done;
+
+	debug "$(env)";
+
+	if $REMOVE_MODE; then
+		remove || return $?;
+	else
+		install || return $?;
+	fi;
+
+	return 0;
+}
+
+	main "$@";
