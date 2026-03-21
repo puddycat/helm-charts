@@ -10,23 +10,23 @@ metadata:
   {{- end }}
 data:
   kong-container-health.sh: |-
-    #!/bin/bash
+    #! /usr/bin/env bash
 
     set -o errexit
     set -o nounset
     set -o pipefail
 
     # Load libraries
-    . /opt/bitnami/scripts/libos.sh
-    . /opt/bitnami/scripts/libkong.sh
+    . /opt/scripts/libos.sh
+    . /opt/scripts/libkong.sh
 
     # Load Kong environment variables
-    . /opt/bitnami/scripts/kong-env.sh
+    . /opt/scripts/kong-env.sh
 
     is_kong_running
 
   ingress-container-wait-for-kong.sh: |-
-    #!/bin/bash
+    #! /usr/bin/env bash
 
     echo "Waiting for the Kong container to be ready"
     if wait-for-port --timeout={{ .Values.ingressController.proxyReadyTimeout }} --host=127.0.0.1 --state=inuse {{ .Values.kong.containerPorts.proxyHttp }}; then
@@ -37,7 +37,7 @@ data:
     fi
 
   ingress-container-start.sh: |-
-    #!/bin/bash
+    #! /usr/bin/env bash
 
     . /health/ingress-container-wait-for-kong.sh
 

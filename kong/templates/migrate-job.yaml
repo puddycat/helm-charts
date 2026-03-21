@@ -44,7 +44,7 @@ spec:
           {{- end }}
           env:
             - name: KONG_PREFIX
-              value: /opt/bitnami/kong/server
+              value: /opt/kong/server
             - name: KONG_MIGRATE
               value: "yes"
             - name: BITNAMI_DEBUG
@@ -56,7 +56,7 @@ spec:
             {{- if (eq .Values.database "postgresql") }}
             {{- if .Values.usePasswordFiles }}
             - name: KONG_PG_PASSWORD_FILE
-              value: {{ printf "/opt/bitnami/kong/secrets/%s" (include "kong.postgresql.databaseSecretKey" .) }}
+              value: {{ printf "/opt/kong/secrets/%s" (include "kong.postgresql.databaseSecretKey" .) }}
             {{- else }}
             - name: KONG_PG_PASSWORD
               valueFrom:
@@ -74,7 +74,7 @@ spec:
             {{- if (eq .Values.database "cassandra") }}
             {{- if .Values.usePasswordFiles }}
             - name: KONG_CASSANDRA_PASSWORD_FILE
-              value: {{ printf "/opt/bitnami/kong/secrets/%s" (include "kong.cassandra.databaseSecretKey" .) }}
+              value: {{ printf "/opt/kong/secrets/%s" (include "kong.cassandra.databaseSecretKey" .) }}
             {{- else }}
             - name: KONG_CASSANDRA_PASSWORD
               valueFrom:
@@ -108,11 +108,11 @@ spec:
               mountPath: /tmp
               subPath: tmp-dir
             - name: empty-dir
-              mountPath: /opt/bitnami/kong/server
+              mountPath: /opt/kong/server
               subPath: app-server-dir
             {{- if and .Values.usePasswordFiles (or (eq .Values.database "cassandra") (eq .Values.database "postgresql")) }}
             - name: kong-secrets
-              mountPath: /opt/bitnami/kong/secrets
+              mountPath: /opt/kong/secrets
             {{- end -}}
             {{- if .Values.migration.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.migration.extraVolumeMounts "context" $) | nindent 12 }}

@@ -25,7 +25,7 @@ Access the pod you want to debug by executing
 
 In order to replicate the container startup scripts execute this command:
 
-    /opt/bitnami/scripts/kong/entrypoint.sh /opt/bitnami/scripts/kong/run.sh
+    /opt/scripts/kong/entrypoint.sh /opt/scripts/kong/run.sh
 
 {{- else }}
 {{- $proxyPort := coalesce .Values.service.ports.proxyHttp .Values.service.proxyHttpPort | toString }}

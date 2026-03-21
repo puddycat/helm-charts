@@ -41,4 +41,4 @@ maintainers:
 name: kong
 sources:
 - https://github.com/raymondstrose/charts/tree/main/bitnami/kong
-version: 0.0.1
+version: 0.0.2

@@ -11,9 +11,10 @@ metadata:
   {{- end }}
 data:
   enable-metrics-plugin.sh: |-
-    #!/bin/bash
-    . /opt/bitnami/scripts/libos.sh
-    . /opt/bitnami/scripts/libkong.sh
+    #! /usr/bin/env bash
+
+    . /opt/scripts/libos.sh
+    . /opt/scripts/libkong.sh
 
     info "Enabling prometheus plugin"
 
@@ -21,6 +22,7 @@ data:
       if ! curl --silent http://localhost:{{ .Values.kong.containerPorts.adminHttp }}/plugins -d name=prometheus; then
          info "Issue enabling prometheus plugin, this could be due to a race condition with another kong node. Checking status"
       fi
+
       if curl http://localhost:{{ .Values.kong.containerPorts.adminHttp }}/ | grep -Eo '"prometheus":true' > /dev/null; then
          info "Prometheus metrics plugin enabled"
       else
