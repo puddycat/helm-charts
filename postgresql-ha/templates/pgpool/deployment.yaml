@@ -387,6 +387,9 @@ spec:
             - name: empty-dir
               mountPath: /var/log
               subPath: var-log-dir
+            - name: empty-dir
+              mountPath: /var/log/postgresql
+              subPath: var-log-postgresql-dir
 
             - name: empty-dir
               mountPath: /opt/postgres/pgpool/tmp
