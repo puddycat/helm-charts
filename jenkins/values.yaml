@@ -89,7 +89,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: raymondstrose/jenkins
-  tag: 2.426.1
+  tag: 2.562
   digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images

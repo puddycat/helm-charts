@@ -1,7 +1,7 @@
 annotations:
 #  images: |
 #    - name: jenkins
-#      image: docker.io/raymondstrose/jenkins:2.426.1
+#      image: docker.io/raymondstrose/jenkins:2.562
 #    - name: jenkins-agent
 #      image: docker.io/raymondstrose/jenkins-agent:0.3327.0-debian-12-r1
 #    - name: os-shell
@@ -9,7 +9,8 @@ annotations:
   licenses: Apache-2.0
   tanzuCategory: application
 apiVersion: v2
-appVersion: 2.426.1
+appVersion: 2.562
+#appVersion: 2.426.1
 #dependencies:
 #- name: common
 #  repository: oci://registry-1.docker.io/bitnamicharts
@@ -33,4 +34,4 @@ maintainers:
 name: jenkins
 sources:
 - https://github.com/raymondstrose/jenkins
-version: 0.0.2
+version: 0.0.3
