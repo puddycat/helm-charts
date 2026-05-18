@@ -83,13 +83,10 @@ spec:
             - /bin/sh
             - -cx
             - |
-              #cp /tmp/certs/* /opt/postgres/postgresql/certs/
               cp /tmp/certs/* /opt/postgresql/certs/
               {{- if eq ( toString ( .Values.volumePermissions.podSecurityContext.runAsUser )) "auto" }}
-              #chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgres/postgresql/certs/
               chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgresql/certs/
               {{- else }}
-              #chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgres/postgresql/certs/
               chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgresql/certs/
               {{- end }}
               chmod 600 {{ template "postgresql-ha.postgresql.tlsCertKey" . }}
@@ -107,7 +104,6 @@ spec:
             - name: raw-certificates
               mountPath: /tmp/certs
             - name: postgresql-certificates
-              #mountPath: /opt/postgres/postgresql/certs
               mountPath: /opt/postgresql/certs
             - name: empty-dir
               mountPath: /tmp
@@ -318,13 +314,22 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: REPMGR_PARTNER_NODES
+              value: {{ range $e, $i := until $postgresqlReplicaCount }}{{ $postgresqlFullname }}-{{ $i }}.{{ $postgresqlHeadlessServiceName }}.postgresql-ha.svc.{{ $clusterDomain }},{{ end }}
+{{- /*
               value: {{ range $e, $i := until $postgresqlReplicaCount }}{{ $postgresqlFullname }}-{{ $i }}.{{ $postgresqlHeadlessServiceName }}.$(REPMGR_NAMESPACE).svc.{{ $clusterDomain }},{{ end }}
+*/}}
             - name: REPMGR_PRIMARY_HOST
+              value: {{ printf "%s-0.%s.postgresql-ha.svc.%s" $postgresqlFullname $postgresqlHeadlessServiceName $clusterDomain | quote }}
+{{- /*
               value: {{ printf "%s-0.%s.$(REPMGR_NAMESPACE).svc.%s" $postgresqlFullname $postgresqlHeadlessServiceName $clusterDomain | quote }}
+*/}}
             - name: REPMGR_NODE_NAME
               value: "$(MY_POD_NAME)"
             - name: REPMGR_NODE_NETWORK_NAME
+              value: "$(MY_POD_NAME).{{ $postgresqlHeadlessServiceName }}.postgresql-ha.svc.{{ $clusterDomain }}"
+{{- /*
               value: "$(MY_POD_NAME).{{ $postgresqlHeadlessServiceName }}.$(REPMGR_NAMESPACE).svc.{{ $clusterDomain }}"
+*/}}
             - name: REPMGR_NODE_TYPE
               value: "data"
             - name: REPMGR_LOG_LEVEL

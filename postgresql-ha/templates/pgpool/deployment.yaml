@@ -160,7 +160,11 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: PGPOOL_BACKEND_NODES
+              value: {{ range $e, $i := until $postgresqlReplicaCount }}{{ $i }}:{{ $postgresqlFullname }}-{{ $i }}.{{ $postgresqlHeadlessServiceName }}.postgresql-ha.svc.{{ $clusterDomain }}:{{ $postgresalContainerPort }},{{ end }}
+{{- /*
               value: {{ range $e, $i := until $postgresqlReplicaCount }}{{ $i }}:{{ $postgresqlFullname }}-{{ $i }}.{{ $postgresqlHeadlessServiceName }}.$(REPMGR_NAMESPACE).svc.{{ $clusterDomain }}:{{ $postgresalContainerPort }},{{ end }}
+              value: {{ range $e, $i := until $postgresqlReplicaCount }}{{ $i }}:{{ $postgresqlFullname }}-{{ $i }}.{{ $postgresqlHeadlessServiceName }}.$REPMGR_NAMESPACE.svc.{{ $clusterDomain }}:{{ $postgresalContainerPort }},{{ end }}
+*/}}
             - name: PGPOOL_SR_CHECK_USER
               value: {{ (include "postgresql-ha.pgoolSrCheckUsername" .) | quote }}
             {{- if .Values.pgpool.usePasswordFiles }}
@@ -342,7 +346,7 @@ spec:
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.pgpool.livenessProbe "enabled") "context" $) | nindent 12 }}
             exec:
               command:
-                - /opt/postgres/scripts/pgpool/healthcheck.sh
+                - /opt/bin/healthcheck
           {{- end }}
           {{- if .Values.pgpool.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.pgpool.customReadinessProbe "context" $) | nindent 12 }}
@@ -360,7 +364,7 @@ spec:
           startupProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.pgpool.startupProbe "enabled") "context" $) | nindent 12 }}
             exec:
               command:
-                - /opt/postgres/scripts/pgpool/healthcheck.sh
+                - /opt/bin/healthcheck
           {{- end }}
           {{- end }}
           {{- if .Values.pgpool.resources }}

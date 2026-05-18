@@ -36,4 +36,4 @@ maintainers:
   - email: raymondstrose@hotmail.com
     name: Raymond St.Rose
 name: postgresql-ha
-version: 0.0.1
+version: 0.0.7
