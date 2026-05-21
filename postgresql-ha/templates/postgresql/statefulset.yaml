@@ -83,13 +83,10 @@ spec:
             - /bin/sh
             - -cx
             - |
-              #cp /tmp/certs/* /opt/postgres/postgresql/certs/
               cp /tmp/certs/* /opt/postgresql/certs/
               {{- if eq ( toString ( .Values.volumePermissions.podSecurityContext.runAsUser )) "auto" }}
-              #chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgres/postgresql/certs/
               chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgresql/certs/
               {{- else }}
-              #chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgres/postgresql/certs/
               chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgresql/certs/
               {{- end }}
               chmod 600 {{ template "postgresql-ha.postgresql.tlsCertKey" . }}
@@ -470,28 +467,22 @@ spec:
               mountPath: /var/run/postgresql
               subPath: var-run-postgresql-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/postgresql/conf
               mountPath: /opt/postgresql/conf
               subPath: app-conf-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/postgresql/tmp
               mountPath: /opt/postgresql/tmp
               subPath: app-tmp-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/conf
               mountPath: /opt/postgresql/repmgr/conf
               subPath: repmgr-conf-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/tmp
               mountPath: /opt/postgresql/repmgr/tmp
               subPath: repmgr-tmp-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/logs
               mountPath: /opt/postgresql/repmgr/logs
               subPath: repmgr-logs-dir
             {{- if or .Values.postgresql.repmgrConfiguration .Values.postgresql.configuration .Values.postgresql.pgHbaConfiguration .Values.postgresql.configurationCM }}
             - name: postgresql-config
-              #mountPath: /bitnami/repmgr/conf
               mountPath: /repmgr/conf
             {{- end }}
 {{- /*
@@ -503,7 +494,6 @@ FIXME: Should this be persistent?
             {{- if or .Values.postgresql.extendedConf .Values.postgresql.extendedConfCM }}
             - name: postgresql-extended-config
               mountPath: /postgresql/conf/conf.d/
-              #mountPath: /bitnami/postgresql/conf/conf.d/
             {{- end }}
             {{- if or .Values.postgresql.initdbScriptsCM .Values.postgresql.initdbScripts }}
             - name: custom-init-scripts
@@ -516,26 +506,21 @@ FIXME: Should this be persistent?
             {{- if .Values.postgresql.usePasswordFiles }}
             {{- if not (eq (include "postgresql-ha.postgresqlUsername" .) "postgres") }}
             - name: postgresql-creds
-              #mountPath: /opt/postgres/postgresql/secrets/postgres-password
               mountPath: /opt/postgresql/secrets/postgres-password
               subPath: postgres-password
             {{- end }}
             - name: postgresql-creds
               subPath: password
-              #mountPath: /opt/postgres/postgresql/secrets/password
               mountPath: /opt/postgresql/secrets/password
             - name: postgresql-creds
               subPath: repmgr-password
-              #mountPath: /opt/postgres/postgresql/secrets/repmgr-password
               mountPath: /opt/postgresql/secrets/repmgr-password
             - name: pgpool-creds
               subPath: sr-check-password
-              #mountPath: /opt/postgres/postgresql/secrets/sr-check-password
               mountPath: /opt/postgresql/secrets/sr-check-password
             {{- end }}
             {{- if .Values.postgresql.tls.enabled }}
             - name: postgresql-certificates
-              #mountPath: /opt/postgres/postgresql/certs
               mountPath: /opt/postgresql/certs
             {{- end }}
             - name: data

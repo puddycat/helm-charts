@@ -82,11 +82,11 @@ spec:
             - /bin/sh
             - -cx
             - |
-              cp /tmp/certs/* /opt/postgres/postgresql/certs/
+              cp /tmp/certs/* /opt/postgresql/certs/
               {{- if eq ( toString ( .Values.volumePermissions.podSecurityContext.runAsUser )) "auto" }}
-              chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgres/postgresql/certs/
+              chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgresql/certs/
               {{- else }}
-              chown -R {{ .Values.witness.containerSecurityContext.runAsUser }}:{{ .Values.witness.podSecurityContext.fsGroup }} /opt/postgres/postgresql/certs/
+              chown -R {{ .Values.witness.containerSecurityContext.runAsUser }}:{{ .Values.witness.podSecurityContext.fsGroup }} /opt/postgresql/certs/
               {{- end }}
               chmod 600 {{ template "postgresql-ha.postgresql.tlsCertKey" . }}
           {{- if eq ( toString ( .Values.volumePermissions.podSecurityContext.runAsUser )) "auto" }}
@@ -98,7 +98,7 @@ spec:
             - name: raw-certificates
               mountPath: /tmp/certs
             - name: postgresql-certificates
-              mountPath: /opt/postgres/postgresql/certs
+              mountPath: /opt/postgresql/certs
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
@@ -128,6 +128,9 @@ spec:
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
+            - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: var-run-postgresql-dir
       {{- end }}
       {{- if or .Values.witness.initContainers .Values.witness.extraInitContainers }}
       {{- include "common.tplvalues.render" ( dict "value" (coalesce .Values.witness.initContainers .Values.witness.extraInitContainers) "context" $ ) | nindent 8 }}
@@ -177,7 +180,7 @@ spec:
             {{- if not (eq (include "postgresql-ha.postgresqlUsername" .) "postgres") }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: POSTGRES_POSTGRES_PASSWORD_FILE
-              value: "/opt/postgres/postgresql/secrets/postgres-password"
+              value: "/opt/postgresql/secrets/postgres-password"
             {{- else }}
             - name: POSTGRES_POSTGRES_PASSWORD
               valueFrom:
@@ -190,7 +193,7 @@ spec:
               value: {{ (include "postgresql-ha.postgresqlUsername" .) | quote }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: POSTGRES_PASSWORD_FILE
-              value: "/opt/postgres/postgresql/secrets/password"
+              value: "/opt/postgresql/secrets/password"
             {{- else }}
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -322,7 +325,7 @@ spec:
               value: {{ (include "postgresql-ha.postgresqlRepmgrUsername" .) | quote }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: REPMGR_PASSWORD_FILE
-              value: "/opt/postgres/postgresql/secrets/repmgr-password"
+              value: "/opt/postgresql/secrets/repmgr-password"
             {{- else }}
             - name: REPMGR_PASSWORD
               valueFrom:
@@ -334,7 +337,6 @@ spec:
             - name: REPMGR_USE_PASSFILE
               value: {{ ternary "true" "false" .Values.postgresql.repmgrUsePassfile | quote }}
             - name: REPMGR_PASSFILE_PATH
-              #value: {{ default "/opt/postgres/repmgr/conf/.pgpass" .Values.postgresql.repmgrPassfilePath }}
               value: {{ default "/opt/postgresql/repmgr/conf/.pgpass" .Values.postgresql.repmgrPassfilePath }}
             {{- end }}
             {{- if (include "postgresql-ha.repmgrDatabase" .) }}
@@ -399,36 +401,33 @@ spec:
           resources: {{- include "common.resources.preset" (dict "type" .Values.witness.resourcesPreset) | nindent 12 }}
           {{- end }}
           volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
             - name: empty-dir
-              mountPath: /opt/postgres/postgresql/conf
+              mountPath: /opt/postgresql/conf
               subPath: app-conf-dir
             - name: empty-dir
-              mountPath: /opt/postgres/postgresql/tmp
+              mountPath: /opt/postgresql/tmp
               subPath: app-tmp-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/conf
               mountPath: /opt/postgresql/repmgr/conf
               subPath: repmgr-conf-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/tmp
               mountPath: /opt/postgresql/repmgr/tmp
               subPath: repmgr-tmp-dir
             - name: empty-dir
-              #mountPath: /opt/postgres/repmgr/logs
               mountPath: /opt/postgresql/repmgr/logs
               subPath: repmgr-logs-dir
             {{- if or .Values.witness.repmgrConfiguration .Values.witness.configuration .Values.witness.pgHbaConfiguration .Values.witness.configurationCM }}
             - name: postgresql-config
               mountPath: /repmgr/conf
-              #mountPath: /bitnami/repmgr/conf
             {{- end }}
             {{- if or .Values.witness.extendedConf .Values.witness.extendedConfCM }}
             - name: postgresql-extended-config
               mountPath: /postgresql/conf/conf.d/
-              #mountPath: /bitnami/postgresql/conf/conf.d/
             {{- end }}
             {{- if or .Values.witness.initdbScriptsCM .Values.witness.initdbScripts }}
             - name: custom-init-scripts
@@ -440,11 +439,11 @@ spec:
             {{- end }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: password
-              mountPath: /opt/postgres/postgresql/secrets/
+              mountPath: /opt/postgresql/secrets/
             {{- end }}
             {{- if .Values.postgresql.tls.enabled }}
             - name: postgresql-certificates
-              mountPath: /opt/postgres/postgresql/certs
+              mountPath: /opt/postgresql/certs
             {{- end }}
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
@@ -468,7 +467,7 @@ spec:
               value: {{ printf "127.0.0.1:%d/%s?sslmode=disable" (.Values.witness.containerPorts.postgresql | int64) (include "postgresql-ha.postgresqlDatabase" .) | quote }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: DATA_SOURCE_PASS_FILE
-              value: "/opt/postgres/postgresql/secrets/password"
+              value: "/opt/postgresql/secrets/password"
             {{- else }}
             - name: DATA_SOURCE_PASS
               valueFrom:
@@ -530,7 +529,7 @@ spec:
               subPath: tmp-dir
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: password
-              mountPath: /opt/postgres/postgresql/secrets/
+              mountPath: /opt/postgresql/secrets/
             {{- end }}
             {{- if .Values.metrics.customMetrics }}
             - name: custom-metrics
