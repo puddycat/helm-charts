@@ -5,7 +5,7 @@ entries:
       category: Messaging
     apiVersion: v2
     appVersion: 14.5.0
-    created: "2026-05-21T14:40:47.864485+01:00"
+    created: "2026-05-21T14:54:47.130969+01:00"
     description: Docker Mailserver.
     digest: cb7cb8f684bc4e85f5570531eaa65140743e14b709b53de6dbab1905746e9877
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -32,7 +32,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "12.2"
-    created: "2026-05-21T14:40:47.870833+01:00"
+    created: "2026-05-21T14:54:47.135407+01:00"
     description: Grafana is an open source metric analytics and visualization suite
       for visualizing time series data that supports various types of data sources.
     digest: 2933736e5b70b9bccba87fdd38100e895c1ddac898600c08e7e188756926fb0c
@@ -55,7 +55,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.0.1
-    created: "2026-05-21T14:40:47.871585+01:00"
+    created: "2026-05-21T14:54:47.13664+01:00"
     description: A Helm chart for Home infrastructure
     digest: 9b30e9cfc51d9cf527c76ed2d4c92bb451ea243f5e6f9f4adf8131f22d114868
     maintainers:
@@ -73,7 +73,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: "2.562"
-    created: "2026-05-21T14:40:47.884717+01:00"
+    created: "2026-05-21T14:54:47.150919+01:00"
     description: Jenkins is an open source Continuous Integration and Continuous Delivery
       (CI/CD) server designed to automate the building, testing, and deploying of
       any software project.
@@ -99,7 +99,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: "2.562"
-    created: "2026-05-21T14:40:47.880578+01:00"
+    created: "2026-05-21T14:54:47.14625+01:00"
     description: Jenkins is an open source Continuous Integration and Continuous Delivery
       (CI/CD) server designed to automate the building, testing, and deploying of
       any software project.
@@ -125,7 +125,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: 2.426.1
-    created: "2026-05-21T14:40:47.875788+01:00"
+    created: "2026-05-21T14:54:47.141274+01:00"
     description: Jenkins is an open source Continuous Integration and Continuous Delivery
       (CI/CD) server designed to automate the building, testing, and deploying of
       any software project.
@@ -156,7 +156,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 9.2.0
-    created: "2026-05-21T14:40:47.888007+01:00"
+    created: "2026-05-21T14:54:47.155732+01:00"
     description: Kibana is an open source, browser based analytics and search dashboard
       for Elasticsearch. Kibana strives to be easy to get started with, while also
       being flexible and powerful.
@@ -186,7 +186,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 3.9.1
-    created: "2026-05-21T14:40:47.89922+01:00"
+    created: "2026-05-21T14:54:47.167465+01:00"
     description: Kong is an open source Microservice API gateway and platform designed
       for managing microservices requests of high-availability, fault-tolerance, and
       distributed systems.
@@ -218,7 +218,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 3.9.1
-    created: "2026-05-21T14:40:47.894208+01:00"
+    created: "2026-05-21T14:54:47.161309+01:00"
     description: Kong is an open source Microservice API gateway and platform designed
       for managing microservices requests of high-availability, fault-tolerance, and
       distributed systems.
@@ -253,7 +253,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.947705+01:00"
+    created: "2026-05-21T14:54:47.227709+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -284,7 +284,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.943974+01:00"
+    created: "2026-05-21T14:54:47.222652+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -315,7 +315,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.938962+01:00"
+    created: "2026-05-21T14:54:47.216789+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -346,7 +346,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.935243+01:00"
+    created: "2026-05-21T14:54:47.209675+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -377,7 +377,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.931529+01:00"
+    created: "2026-05-21T14:54:47.202083+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -408,7 +408,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.926431+01:00"
+    created: "2026-05-21T14:54:47.194567+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -439,7 +439,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.922407+01:00"
+    created: "2026-05-21T14:54:47.189877+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -470,7 +470,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.918602+01:00"
+    created: "2026-05-21T14:54:47.18556+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -501,7 +501,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.91325+01:00"
+    created: "2026-05-21T14:54:47.179443+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -532,7 +532,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.909086+01:00"
+    created: "2026-05-21T14:54:47.175577+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -563,7 +563,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.980847+01:00"
+    created: "2026-05-21T14:54:47.291437+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -594,7 +594,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.976002+01:00"
+    created: "2026-05-21T14:54:47.283261+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -625,7 +625,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.972071+01:00"
+    created: "2026-05-21T14:54:47.278021+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -656,7 +656,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.968349+01:00"
+    created: "2026-05-21T14:54:47.269041+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -687,7 +687,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.963717+01:00"
+    created: "2026-05-21T14:54:47.261519+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -718,7 +718,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.959651+01:00"
+    created: "2026-05-21T14:54:47.255154+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -749,7 +749,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.9555+01:00"
+    created: "2026-05-21T14:54:47.245564+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -780,7 +780,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.951278+01:00"
+    created: "2026-05-21T14:54:47.236077+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -811,7 +811,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 1.29.2
-    created: "2026-05-21T14:40:47.904172+01:00"
+    created: "2026-05-21T14:54:47.171696+01:00"
     description: NGINX Open Source is a web server that can be also used as a reverse
       proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due
       to its ability to provide faster content.
@@ -845,7 +845,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.005571+01:00"
+    created: "2026-05-21T14:54:47.321561+01:00"
     description: PostgreSQL (Postgres) is an open source object-relational database
       known for reliability and data integrity. ACID-compliant, it supports foreign
       keys, joins, views, triggers and stored procedures.
@@ -869,7 +869,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:47.998079+01:00"
+    created: "2026-05-21T14:54:47.314435+01:00"
     description: A Helm chart for PostgreSQL
     digest: 578ff05b29f0f9499688e8b3c35c537c78524a22523c90c341fa095a7550d1b9
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -890,7 +890,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:47.992511+01:00"
+    created: "2026-05-21T14:54:47.308332+01:00"
     description: A Helm chart for PostgreSQL
     digest: a6ead4d81c17058c3a822fff00fd84d556222ed8837a611804ddbf2808065de5
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -911,7 +911,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:47.98578+01:00"
+    created: "2026-05-21T14:54:47.300783+01:00"
     description: A Helm chart for PostgreSQL
     digest: c7d5eab04148133ee885f31973469e4e70cd7784bad321280a0e17bb619b73dc
     home: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
@@ -933,7 +933,34 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.06775+01:00"
+    created: "2026-05-21T14:54:47.335047+01:00"
+    description: This PostgreSQL cluster solution includes the PostgreSQL replication
+      manager, an open-source tool for managing replication and failover on PostgreSQL
+      clusters.
+    digest: 4511e19641b3aa214f670b5ad6c0e2ad580a7cdcb1b58da1ef9bdfb879a54714
+    icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+    keywords:
+    - postgresql
+    - repmgr
+    - pgpool
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    - high availability
+    maintainers:
+    - email: raymondstrose@hotmail.com
+      name: Raymond St.Rose
+    name: postgresql-ha
+    urls:
+    - https://puddycat.github.io/helm-charts/postgresql-ha-0.0.10.tgz
+    version: 0.0.10
+  - annotations:
+      licenses: Apache-2.0
+    apiVersion: v2
+    appVersion: "18.1"
+    created: "2026-05-21T14:54:47.389304+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -960,7 +987,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.061234+01:00"
+    created: "2026-05-21T14:54:47.382295+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -987,7 +1014,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.054026+01:00"
+    created: "2026-05-21T14:54:47.375937+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1014,7 +1041,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.047717+01:00"
+    created: "2026-05-21T14:54:47.368074+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1041,7 +1068,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.03999+01:00"
+    created: "2026-05-21T14:54:47.3613+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1068,7 +1095,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.03243+01:00"
+    created: "2026-05-21T14:54:47.355033+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1095,7 +1122,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.025765+01:00"
+    created: "2026-05-21T14:54:47.348051+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1122,11 +1149,11 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.018525+01:00"
+    created: "2026-05-21T14:54:47.341107+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
-    digest: 7af481c70582a3d0367bd24674608d6bcd4b7add2e15a31e3cc8893c853b534e
+    digest: d27adb2aab97a22524ffc0dd169242e2531b21798195da5e50084828d365c8aa
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/postgresql/img/postgresql-stack-220x234.png
     keywords:
     - postgresql
@@ -1149,7 +1176,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: "18.1"
-    created: "2026-05-21T14:40:48.011764+01:00"
+    created: "2026-05-21T14:54:47.328727+01:00"
     description: This PostgreSQL cluster solution includes the PostgreSQL replication
       manager, an open-source tool for managing replication and failover on PostgreSQL
       clusters.
@@ -1182,7 +1209,7 @@ entries:
       licenses: Apache-2.0
     apiVersion: v2
     appVersion: 4.1.4
-    created: "2026-05-21T14:40:48.072138+01:00"
+    created: "2026-05-21T14:54:47.39553+01:00"
     digest: 42db3fbb710c030a27c1caea90f7398c67a962d6d58379a102e528afc0e57441
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/rabbitmq/img/rabbitmq-stack-220x234.png
     keywords:
@@ -1198,4 +1225,4 @@ entries:
     urls:
     - https://puddycat.github.io/helm-charts/rabbitmq-0.0.1.tgz
     version: 0.0.1
-generated: "2026-05-21T14:40:47.862961+01:00"
+generated: "2026-05-21T14:54:47.129982+01:00"
