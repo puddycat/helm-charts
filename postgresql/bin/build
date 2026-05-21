@@ -167,7 +167,8 @@ main ()
 				BUILDX_ENABLE		true
 				BUILDX_PLATFORMS	"linux/amd64,linux/arm64,linux/arm/v7"
 				BUILD_HOME_DIR		"/home/build"
-				BUILD_UID			"1001"
+				BUILD_UID			"999"
+				#BUILD_UID			"1001"
 
 				POSTGRES_VERSION	"18.1"
 

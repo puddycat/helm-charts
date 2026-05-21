@@ -83,10 +83,13 @@ spec:
             - /bin/sh
             - -cx
             - |
+              #cp /tmp/certs/* /opt/postgres/postgresql/certs/
               cp /tmp/certs/* /opt/postgresql/certs/
               {{- if eq ( toString ( .Values.volumePermissions.podSecurityContext.runAsUser )) "auto" }}
+              #chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgres/postgresql/certs/
               chown -R `id -u`:`id -G | cut -d " " -f2` /opt/postgresql/certs/
               {{- else }}
+              #chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgres/postgresql/certs/
               chown -R {{ .Values.postgresql.containerSecurityContext.runAsUser }}:{{ .Values.postgresql.podSecurityContext.fsGroup }} /opt/postgresql/certs/
               {{- end }}
               chmod 600 {{ template "postgresql-ha.postgresql.tlsCertKey" . }}
@@ -103,7 +106,11 @@ spec:
           volumeMounts:
             - name: raw-certificates
               mountPath: /tmp/certs
+            - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: var-run-postgresql-dir
             - name: postgresql-certificates
+              #mountPath: /opt/postgres/postgresql/certs
               mountPath: /opt/postgresql/certs
             - name: empty-dir
               mountPath: /tmp
@@ -136,6 +143,9 @@ spec:
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
+            - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: var-run-postgresql-dir
       {{- end }}
       {{- if or .Values.postgresql.initContainers .Values.postgresql.extraInitContainers }}
       {{- include "common.tplvalues.render" ( dict "value" (coalesce .Values.postgresql.initContainers .Values.postgresql.extraInitContainers) "context" $ ) | nindent 8 }}
@@ -457,6 +467,9 @@ spec:
               mountPath: /tmp
               subPath: tmp-dir
             - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: var-run-postgresql-dir
+            - name: empty-dir
               #mountPath: /opt/postgres/postgresql/conf
               mountPath: /opt/postgresql/conf
               subPath: app-conf-dir
@@ -614,6 +627,9 @@ FIXME: Should this be persistent?
             - name: empty-dir
               mountPath: /tmp
               subPath: tmp-dir
+            - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: var-run-postgresql-dir
           {{- if or .Values.postgresql.usePasswordFiles .Values.metrics.customMetrics }}
             {{- if .Values.postgresql.usePasswordFiles }}
             - name: postgresql-creds
